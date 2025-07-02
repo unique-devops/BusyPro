@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, Plus, Minus, X, ArrowLeft, Save, Calculator } from 'lucide-react';
+import { Search, ArrowLeft, Save, Calculator } from 'lucide-react';
 import ItemMaster from './ItemMaster';
 
 interface Item {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { TrendingUp, TrendingDown, DollarSign, Package, ShoppingBag, Users } from 'lucide-react';
+import { TrendingDown, DollarSign, Package, Users } from 'lucide-react';
 import Chart from './Chart';
 import RecentTransactions from './RecentTransactions';
 import KPICard from './KPICard';

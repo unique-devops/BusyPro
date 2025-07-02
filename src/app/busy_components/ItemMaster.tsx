@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Package, X, ArrowLeft, ArrowRight } from 'lucide-react';
+import { Search, Package, X } from 'lucide-react';
 
 interface Item {
   id: string;

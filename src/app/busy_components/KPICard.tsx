@@ -1,12 +1,12 @@
 import React from 'react';
-import { TrendingUp, TrendingDown, DivideIcon  as LucideIcon} from 'lucide-react';
+import { TrendingUp, TrendingDown} from 'lucide-react';
 
 export interface KPICardProps {
   title: string;
   value: string;
   change: string;
   trend: 'up' | 'down';
-  icon: any;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   color: 'blue' | 'red' | 'emerald' | 'purple';
 }
 

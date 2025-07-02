@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, Plus, Minus, X, ArrowLeft, Save, Calculator } from 'lucide-react';
+import { Search, ArrowLeft, Save, Calculator } from 'lucide-react';
 import ItemMaster from './ItemMaster';
 
 interface Item {
@@ -26,6 +26,7 @@ interface PurchasePOSProps {
 const PurchasePOS: React.FC<PurchasePOSProps> = ({ onClose }) => {
   const [items, setItems] = useState<PurchaseItem[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
   const [showItemMaster, setShowItemMaster] = useState(false);
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
   const [editingField, setEditingField] = useState<'quantity' | 'rate' | 'discount' | null>(null);
@@ -49,16 +50,31 @@ const PurchasePOS: React.FC<PurchasePOSProps> = ({ onClose }) => {
     { id: '8', name: 'Keyboard', code: 'KB008', price: 1000, stock: 35, unit: 'PCS', category: 'Electronics', gst: 18 },
   ];
 
-  const filteredItems = itemsDatabase.filter(item =>
-    item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.code.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // const filteredItems = itemsDatabase.filter(item =>
+  //   item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //   item.code.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
 
   useEffect(() => {
     if (searchInputRef.current) {
       searchInputRef.current.focus();
     }
-  }, []);
+  }, []); 
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 300); // 300ms debounce delay
+  
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchTerm]);
+
+  const filteredItems = itemsDatabase.filter(item =>
+    item.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+    item.code.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+  );
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
